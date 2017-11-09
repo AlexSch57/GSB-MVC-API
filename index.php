@@ -1,5 +1,7 @@
 <?php
 
+// ceci est une modification test pour GitHub
+
 require_once("include/fct.inc.php");
 require_once ("include/class.pdogsb.inc.php");
 session_start();
