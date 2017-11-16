@@ -14,6 +14,10 @@
                         <a href="index.php?uc=gererFrais&action=saisirFrais" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-plus-sign"></span> <br/>Saisir fiche de frais</a>
                         <a href="index.php?uc=etatFrais&action=selectionnerMois" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Mes fiches de frais</a>
                         <a href="index.php?uc=statAnnee&action=selectionnerAnnee" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Statistiques annuelles</a>
+                        <?php if ($_SESSION["idVisiteur"] == directeur) { ?>
+                            <a href="index.php?uc=statVisiteur&action=selectionnerVisiteur" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Statistiques par visiteur</a>
+                            <a href="index.php?uc=statFrais&action=selectionnerFrais" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-list-alt"></span> <br/>Statistiques par frais</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
