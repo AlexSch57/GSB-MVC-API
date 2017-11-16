@@ -36,7 +36,7 @@
     <table class="table table-bordered table-responsive">
         <tr>
             <th class="date">Date</th>
-            <th class="libelle">Libelle</th>
+            <th class="libelle">Libellé</th>
             <th class='montant'>Montant</th>                
         </tr>
         <?php

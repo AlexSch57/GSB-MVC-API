@@ -30,6 +30,10 @@ switch ($uc) {
             include("controleurs/c_etatFrais.php");
             break;
         }
+    case 'statAnnee' : {
+            include("controleurs/c_listeAnnees.php");
+            break;
+        }
     case 'deconnexion' : {
             include("controleurs/c_deconnexion.php");
             break;
