@@ -13,6 +13,10 @@ if (estConnecte() && isset($_POST['uc'])) {
             include("controleurs/c_statAnnee.ajx.php");
             break;
         }
+        case 'statVisiteur': {
+            include("controleurs/c_statVisiteur.ajx.php");
+            break;
+        }
     }
 }
 ?>

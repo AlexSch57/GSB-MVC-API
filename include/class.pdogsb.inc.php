@@ -356,14 +356,11 @@ class PdoGsb {
      * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
      */
     public function getLesVisiteursDisponibles() {
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(prenom, ' ', nom) as visiteur"
-                . "FROM visiteur "
-                . "ORDER BY id");
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(nom, ' ', prenom) as visiteur FROM visiteur ORDER BY nom");
         $requete_prepare->execute();
         $lesVisiteurs = array();
         while ($laLigne = $requete_prepare->fetch()) {
-            $mois = $laLigne['user'];
-            $annees = substr($mois, 0, 4);
+            $visiteur = $laLigne['visiteur'];
             $lesVisiteurs["$visiteur"] = array(
                 "visiteur" => "$visiteur"
             );
