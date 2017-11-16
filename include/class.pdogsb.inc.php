@@ -348,6 +348,22 @@ class PdoGsb {
         }
         return $lesAnnees;
     }
+    
+    /**
+     * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
+     * concernées par les deux arguments
+     *
+     * @param $idVisiteur
+     * @param $annees sous la forme aaaa
+     * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif
+     */
+    public function getLesFraisAnnuels($idVisiteur, $annee) {
+        
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(mois,5,2) as month, idVisiteur as idVisteur,montantValide as montant"
+                                                    . " FROM fichefrais WHERE idvisiteur = :idVisiteur AND SUBSTR(mois,1,4) = :uneAnne");
+        $requete_prepare->execute(array(":idVisiteur"=>$idVisiteur,":uneAnne"=>  strval($annee)));
+        return $requete_prepare->fetchAll();
+    }
 
     /**
      * Retourne les annees pour lesquel un visiteur a une fiche de frais
