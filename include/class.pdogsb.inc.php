@@ -160,7 +160,7 @@ class PdoGsb {
      */
     public function majFraisForfait($idVisiteur, $mois, $lesFrais) {
         $lesCles = array_keys($lesFrais);
-        foreach($lesCles as $unIdFrais){
+        foreach ($lesCles as $unIdFrais) {
             $qte = $lesFrais[$unIdFrais];
             $requete_prepare = PdoGSB::$monPdo->prepare("UPDATE lignefraisforfait "
                     . "SET lignefraisforfait.quantite = :uneQte "
@@ -202,7 +202,7 @@ class PdoGsb {
      */
     public function estPremierFraisMois($idVisiteur, $mois) {
         $ok = false;
-        $requete_prepare =  PdoGsb::$monPdo->prepare("SELECT fichefrais.mois "
+        $requete_prepare = PdoGsb::$monPdo->prepare("SELECT fichefrais.mois "
                 . "FROM fichefrais "
                 . "WHERE fichefrais.mois = :unMois "
                 . "AND fichefrais.idvisiteur = :unIdVisiteur");
@@ -222,7 +222,7 @@ class PdoGsb {
      * @return le mois sous la forme aaaamm
      */
     public function dernierMoisSaisi($idVisiteur) {
-       $requete_prepare =  PdoGsb::$monPdo->prepare("SELECT MAX(mois) as dernierMois "
+        $requete_prepare = PdoGsb::$monPdo->prepare("SELECT MAX(mois) as dernierMois "
                 . "FROM fichefrais "
                 . "WHERE fichefrais.idvisiteur = :unIdVisiteur");
         $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
@@ -312,7 +312,7 @@ class PdoGsb {
         $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requete_prepare->execute();
         $lesMois = array();
-        while ($laLigne = $requete_prepare->fetch()) {		
+        while ($laLigne = $requete_prepare->fetch()) {
             $mois = $laLigne['mois'];
             $numAnnee = substr($mois, 0, 4);
             $numMois = substr($mois, 4, 2);
@@ -323,6 +323,30 @@ class PdoGsb {
             );
         }
         return $lesMois;
+    }
+
+    /**
+     * Retourne les annees pour lesquel un visiteur a une fiche de frais
+     *
+     * @param $idVisiteur
+     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
+     */
+    public function getLesAnneesDisponibles($idVisiteur) {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT fichefrais.mois AS mois "
+                . "FROM fichefrais "
+                . "WHERE fichefrais.idvisiteur = :unIdVisiteur "
+                . "ORDER BY fichefrais.mois desc");
+        $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requete_prepare->execute();
+        $lesAnnees = array();
+        while ($laLigne = $requete_prepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $annees = substr($mois, 0, 4);
+            $lesAnnees["$annees"] = array(
+                "annee" => "$annees"
+            );
+        }
+        return $lesAnnees;
     }
 
     /**
