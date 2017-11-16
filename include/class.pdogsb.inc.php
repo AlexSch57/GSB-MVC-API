@@ -350,6 +350,28 @@ class PdoGsb {
     }
 
     /**
+     * Retourne les annees pour lesquel un visiteur a une fiche de frais
+     *
+     * @param $idVisiteur
+     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
+     */
+    public function getLesVisiteursDisponibles() {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(prenom, ' ', nom) as visiteur"
+                . "FROM visiteur "
+                . "ORDER BY id");
+        $requete_prepare->execute();
+        $lesVisiteurs = array();
+        while ($laLigne = $requete_prepare->fetch()) {
+            $mois = $laLigne['user'];
+            $annees = substr($mois, 0, 4);
+            $lesVisiteurs["$visiteur"] = array(
+                "visiteur" => "$visiteur"
+            );
+        }
+        return $lesVisiteurs;
+    }
+
+    /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un mois donné
      * 
      * @param $idVisiteur 

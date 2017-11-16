@@ -5,7 +5,7 @@ $id_visiteur = $_SESSION["idVisiteur"];
 switch ($action) {
     case'selectionnerVisiteur': {
             $lesVisiteurs = $pdo->getLesVisiteursDisponibles(directeur);
-            include("vues/v_listeVisiteur.php");
+            include("vues/v_listeVisiteurs.php");
         }
 }
 ?>
