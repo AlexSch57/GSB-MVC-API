@@ -1,4 +1,5 @@
 <?php
+
 $action = $_REQUEST["action"];
 $id_visiteur = $_SESSION["idVisiteur"];
 switch ($action) {
@@ -7,5 +8,4 @@ switch ($action) {
             include("vues/v_listeAnnee.php");
         }
 }
-
 ?>
