@@ -16,10 +16,11 @@
             // création et vérification des frais annuels
             $lesFraisAnnuels = $pdo->getLesFraisAnnuels($leVisiteur, $annee);
             if ($lesFraisAnnuels == null OR $lesFraisAnnuels == 0) {
-                $frais = 0.00;
+                $frais = 0;
             } else {
                 $frais = $lesFraisAnnuels[0][2];
             }
+
 
             // création et vérification des frais dans le forfaits
             $lesFraisForfaitAnnuels = $pdo->getLesFraisForfaitAnnuels($leVisiteur, $annee);
@@ -28,6 +29,7 @@
             } else {
                 $fraisForfait = $lesFraisForfaitAnnuels[0][2];
             }
+
 
             // création et vérification des frais hors forfaits
             $lesFraisHorsForfaitAnnuels = $pdo->getLesFraisHorsForfaitAnnuels($leVisiteur, $annee);
