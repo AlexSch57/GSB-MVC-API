@@ -14,7 +14,6 @@
         foreach ($lesAnneesDisponibles as $uneAnnee) {
             $annee = $uneAnnee['annee'];
             $lesFraisAnnuels = $pdo->getLesFraisAnnuels($leVisiteur, $annee);
-            var_dump($lesFraisAnnuels);
             $frais = $lesFraisAnnuels[0][2];
             $lesFraisForfaitAnnuels = $pdo->getLesFraisForfaitAnnuels($leVisiteur, $annee);
             $fraisForfait = $lesFraisForfaitAnnuels[0][2];
@@ -23,7 +22,7 @@
                 <td><?php echo $annee ?></td>
                 <td><?php echo $frais ?></td>
                 <td><?php echo $fraisForfait ?></td>
-                <td><?php echo "lol" ?></td>
+                <td><?php echo "?" ?></td>
             </tr>
             <?php
         }

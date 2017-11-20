@@ -9,8 +9,9 @@
             <div class="form-group">
                 <label for="lstVisiteur" accesskey="n">Visiteur : </label>
                 <select id="lstVisiteur" name="lstVisiteurs" class="form-control">
-                    <?php
                     
+                    <?php
+                    var_dump($lesVisiteurs);
                     foreach ($lesVisiteurs as $unVisiteur) {
                         $id = $unVisiteur['id'];
                         $visiteur = $unVisiteur['visiteur'];
