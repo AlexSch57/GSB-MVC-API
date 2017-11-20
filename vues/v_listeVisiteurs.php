@@ -1,10 +1,10 @@
 <h2>Les visiteurs</h2>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <h3>Sélectionner un visiteur : </h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form action="index.php?uc=statVisiteur&action=selectionnerVisiteur" method="post" role="form">
             <div class="form-group">
                 <label for="lstVisiteur" accesskey="n">Visiteur : </label>
