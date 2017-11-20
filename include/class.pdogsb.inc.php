@@ -134,6 +134,21 @@ class PdoGsb {
         $requete_prepare->execute();
         return $requete_prepare->fetchAll();
     }
+    
+    
+    public function getLesFraisForfaitAnnuels ($idVisiteur, $annee) {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT fraisforfait.id as idfrais, "
+                . "fraisforfait.libelle as libelle, lignefraisforfait.quantite as quantite "
+                . "FROM lignefraisforfait "
+                . "INNER JOIN fraisforfait ON fraisforfait.id = lignefraisforfait.idfraisforfait "
+                . "WHERE lignefraisforfait.idvisiteur = :unIdVisiteur "
+                . "AND substr(mois,1,4) = :uneAnnee "
+                . "ORDER BY lignefraisforfait.idfraisforfait");
+        $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requete_prepare->bindParam(':uneAnnee', $annee, PDO::PARAM_STR);
+        $requete_prepare->execute();
+        return $requete_prepare->fetchAll();
+    }
 
     /**
      * Retourne tous les id de la table FraisForfait
@@ -372,13 +387,15 @@ class PdoGsb {
      * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
      */
     public function getLesVisiteursDisponibles() {
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(nom, ' ', prenom) as visiteur FROM visiteur ORDER BY nom");
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT id, CONCAT(nom, ' ', prenom) as visiteur FROM visiteur ORDER BY nom");
         $requete_prepare->execute();
         $lesVisiteurs = array();
         while ($laLigne = $requete_prepare->fetch()) {
             $visiteur = $laLigne['visiteur'];
+            $id = $laLigne['id'];
             $lesVisiteurs["$visiteur"] = array(
-                "visiteur" => "$visiteur"
+                "id" => $id, 
+                "visiteur" => $visiteur
             );
         }
         return $lesVisiteurs;

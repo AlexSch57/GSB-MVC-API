@@ -10,11 +10,12 @@
                 <label for="lstVisiteur" accesskey="n">Visiteur : </label>
                 <select id="lstVisiteur" name="lstVisiteurs" class="form-control">
                     <?php
+                    
                     foreach ($lesVisiteurs as $unVisiteur) {
-                        
+                        $id = $unVisiteur['id'];
                         $visiteur = $unVisiteur['visiteur'];
                         ?>
-                        <option selected value="<?php echo $visiteur ?>"><?php echo $visiteur ?></option>
+                        <option selected value="<?php echo $id ?>"><?php echo $visiteur ?></option>
                         <?php
                     }
                     ?>
