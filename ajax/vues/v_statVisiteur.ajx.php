@@ -17,6 +17,9 @@
             $frais = $lesFraisAnnuels[0][2];
             $lesFraisForfaitAnnuels = $pdo->getLesFraisForfaitAnnuels($leVisiteur, $annee);
             $fraisForfait = $lesFraisForfaitAnnuels[0][2];
+            $lesFraisHorsForfaitAnnuels = $pdo->getLesFraisHorsForfaitAnnuels($leVisiteur, $annee);
+            //$fraisHorsForfait = $lesFraisHorsForfaitAnnuels[0][2];
+            var_dump($lesFraisHorsForfaitAnnuels);
             ?>
             <tr>
                 <td><?php echo $annee ?></td>
