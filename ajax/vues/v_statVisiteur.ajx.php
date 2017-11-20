@@ -1,6 +1,6 @@
 <div class="panel panel-info" class="col-md-12">
     <div class="panel-heading" class="col-md-12">
-        Totale remboursement de frais pour le visiteur <?php echo($leVisiteur) ?> :
+        Totale remboursement de frais pour le visiteur <?php echo($nomVisiteur)?> :
     </div>
     <table class="table table-bordered table-responsive">
         <tr>
@@ -45,9 +45,9 @@
                 <td><?php echo $fraisForfait ?></td>
                 <td><?php echo $fraisHorsForfait ?></td>
             </tr>
-    <?php
-}
-?>
+            <?php
+        }
+        ?>
     </table>
 </div>
 

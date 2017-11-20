@@ -5,7 +5,8 @@ $id_visiteur = $_SESSION["idVisiteur"];
 switch ($action) {
     case'voirStatVisiteur': {
             $leVisiteur = ($_POST["lstVisiteur"]);
-            $lesAnneesDisponibles = $pdo->getLesAnneesDisponibles($id_visiteur);
+            $nomVisiteur = $pdo->getNomPrenomVisiteurParId($leVisiteur);
+            $lesAnneesDisponibles = $pdo->getLesAnneesDisponibles($leVisiteur);
             include("vues/v_statVisiteur.ajx.php");
         }
 }

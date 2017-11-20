@@ -9,14 +9,14 @@
             <div class="form-group">
                 <label for="lstVisiteur" accesskey="n">Visiteur : </label>
                 <select id="lstVisiteur" name="lstVisiteurs" class="form-control">
-                    
+
                     <?php
                     var_dump($lesVisiteurs);
                     foreach ($lesVisiteurs as $unVisiteur) {
                         $id = $unVisiteur['id'];
                         $visiteur = $unVisiteur['visiteur'];
                         ?>
-                        <option selected value="<?php echo $id ?>"><?php echo $visiteur ?></option>
+                    <option selected value="<?php echo $id ?>"><?php echo $visiteur ?></option>
                         <?php
                     }
                     ?>

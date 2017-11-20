@@ -440,6 +440,22 @@ class PdoGsb {
     }
 
     /**
+     * Retourne les annees pour lesquel un visiteur a une fiche de frais
+     *
+     * @param $idVisiteur
+     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
+     */
+    public function getNomPrenomVisiteurParId($idVisiteur) {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(nom, ' ', prenom) as visiteur FROM visiteur WHERE id = :idVisiteur");
+        $requete_prepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requete_prepare->execute();
+        while ($laLigne = $requete_prepare->fetch()) {
+            $visiteur = $laLigne['visiteur'];
+        }
+        return $visiteur;
+    }
+
+    /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un mois donné
      * 
      * @param $idVisiteur 
