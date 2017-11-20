@@ -10,26 +10,42 @@
             <th class="horsForfait">Hors forfait</th>
         </tr>
         <?php
-        
         foreach ($lesAnneesDisponibles as $uneAnnee) {
             $annee = $uneAnnee['annee'];
+
+            // création et vérification des frais annuels
             $lesFraisAnnuels = $pdo->getLesFraisAnnuels($leVisiteur, $annee);
-            $frais = $lesFraisAnnuels[0][2];
+            if ($lesFraisAnnuels == null OR $lesFraisAnnuels == 0) {
+                $frais = 0.00;
+            } else {
+                $frais = $lesFraisAnnuels[0][2];
+            }
+
+            // création et vérification des frais dans le forfaits
             $lesFraisForfaitAnnuels = $pdo->getLesFraisForfaitAnnuels($leVisiteur, $annee);
-            $fraisForfait = $lesFraisForfaitAnnuels[0][2];
+            if ($lesFraisAnnuels == null) {
+                $fraisForfait = 0;
+            } else {
+                $fraisForfait = $lesFraisForfaitAnnuels[0][2];
+            }
+
+            // création et vérification des frais hors forfaits
             $lesFraisHorsForfaitAnnuels = $pdo->getLesFraisHorsForfaitAnnuels($leVisiteur, $annee);
-            //$fraisHorsForfait = $lesFraisHorsForfaitAnnuels[0][2];
-            var_dump($lesFraisHorsForfaitAnnuels);
+            if ($lesFraisHorsForfaitAnnuels == null) {
+                $fraisHorsForfait = 0;
+            } else {
+                $fraisHorsForfait = $lesFraisHorsForfaitAnnuels[0][2];
+            }
             ?>
             <tr>
                 <td><?php echo $annee ?></td>
                 <td><?php echo $frais ?></td>
                 <td><?php echo $fraisForfait ?></td>
-                <td><?php echo "?" ?></td>
+                <td><?php echo $fraisHorsForfait ?></td>
             </tr>
-            <?php
-        }
-        ?>
+    <?php
+}
+?>
     </table>
 </div>
 
