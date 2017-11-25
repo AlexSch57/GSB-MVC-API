@@ -95,28 +95,21 @@ class PdoGsb {
     }
 
     /**
-     * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait par année
-     * concernées par les deux arguments
-     * La boucle foreach ne peut être utilisée ici car on procède
-     * à une modification de la structure itérée - transformation du champ date-
+     * Retourne la valeur du total du montant des frais hors forfait par année pour un visiteur
      * 
      * @param $idVisiteur 
      * @param $annee sous la forme aaaa
-     * @return tous les champs des lignes de frais hors forfait sous la forme d'un tableau associatif 
+     * @return le total du montant des frais hors forfait par année pour un visiteur 
      */
     public function getLesFraisHorsForfaitAnnuels($idVisiteur, $annee) {
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT * FROM lignefraishorsforfait "
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUM(montant) as total FROM lignefraishorsforfait "
                 . "WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur "
                 . "AND SUBSTR(mois,1,4) = :uneAnnee");
         $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requete_prepare->bindParam(':uneAnnee', $annee, PDO::PARAM_STR);
         $requete_prepare->execute();
-        $lesLignes = $requete_prepare->fetchAll();
-        for ($i = 0; $i < count($lesLignes); $i++) {
-            $date = $lesLignes[$i]['date'];
-            $lesLignes[$i]['date'] = dateAnglaisVersFrancais($date);
-        }
-        return $lesLignes;
+        $leMontant = $requete_prepare->fetch();
+        return $leMontant['total'];
     }
 
     /**
