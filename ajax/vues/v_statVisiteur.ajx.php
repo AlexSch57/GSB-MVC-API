@@ -14,15 +14,15 @@
             $annee = $uneAnnee['annee'];
 
             // création et vérification des frais annuels
-            $lesFraisAnnuels = $pdo->getLesFraisAnnuels($leVisiteur, $annee);
-            $frais = $lesFraisAnnuels[0][2];
+            $lesFraisAnnuels = $pdo->getMontantFraisAnnuels($leVisiteur, $annee);
+            $frais = $lesFraisAnnuels;
             
             // création et vérification des frais dans le forfaits
-            $lesFraisForfaitAnnuels = $pdo->getLesFraisForfaitAnnuels($leVisiteur, $annee);
+            $lesFraisForfaitAnnuels = $pdo->getMontantFraisForfaitAnnuels($leVisiteur, $annee);
             $fraisForfait = $lesFraisForfaitAnnuels[0][2];
 
             // création et vérification des frais hors forfaits
-            $lesFraisHorsForfaitAnnuels = $pdo->getLesFraisHorsForfaitAnnuels($leVisiteur, $annee);
+            $lesFraisHorsForfaitAnnuels = $pdo->getMontantFraisHorsForfaitAnnuels($leVisiteur, $annee);
             $fraisHorsForfait = $lesFraisHorsForfaitAnnuels;
             
             if($frais != 0)

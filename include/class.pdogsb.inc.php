@@ -101,15 +101,15 @@ class PdoGsb {
      * @param $annee sous la forme aaaa
      * @return le total du montant des frais hors forfait par année pour un visiteur 
      */
-    public function getLesFraisHorsForfaitAnnuels($idVisiteur, $annee) {
+    public function getMontantFraisHorsForfaitAnnuels($idVisiteur, $annee) {
         $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUM(montant) as total FROM lignefraishorsforfait "
                 . "WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur "
                 . "AND SUBSTR(mois,1,4) = :uneAnnee");
         $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requete_prepare->bindParam(':uneAnnee', $annee, PDO::PARAM_STR);
         $requete_prepare->execute();
-        $leMontant = $requete_prepare->fetch();
-        return $leMontant['total'];
+        $laLigne = $requete_prepare->fetch();
+        return $laLigne['total'];
     }
 
     /**
@@ -153,7 +153,16 @@ class PdoGsb {
         return $requete_prepare->fetchAll();
     }
 
-    public function getLesFraisForfaitAnnuels($idVisiteur, $annee) {
+    
+        /**
+     * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
+     * concernées par les deux arguments
+     * 
+     * @param $idVisiteur 
+     * @param $mois sous la forme aaaamm
+     * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif 
+     */
+    public function getMontantFraisForfaitAnnuels($idVisiteur, $annee) {
         $requete_prepare = PdoGSB::$monPdo->prepare("SELECT fraisforfait.id as idfrais, "
                 . "fraisforfait.libelle as libelle, lignefraisforfait.quantite as quantite "
                 . "FROM lignefraisforfait "
@@ -394,22 +403,24 @@ class PdoGsb {
         }
         return $lesAnnees;
     }
-
+    
     /**
-     * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
+     * Retourne le montant total des frais annuel
      * concernées par les deux arguments
      *
      * @param $idVisiteur
      * @param $annees sous la forme aaaa
      * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif
      */
-    public function getLesFraisAnnuels($idVisiteur, $annee) {
+    public function getMontantFraisAnnuels($idVisiteur, $annee) {
 
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(mois,5,2) as month, idVisiteur as idVisteur,montantValide as montant"
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUM(montantValide) as montant"
                 . " FROM fichefrais WHERE idvisiteur = :idVisiteur AND SUBSTR(mois,1,4) = :uneAnne");
         $requete_prepare->execute(array(":idVisiteur" => $idVisiteur, ":uneAnne" => strval($annee)));
-        return $requete_prepare->fetchAll();
+        $laLigne = $requete_prepare->fetch();
+        return $laLigne['montant'];
     }
+    
 
     /**
      * Retourne les annees pour lesquel un visiteur a une fiche de frais
