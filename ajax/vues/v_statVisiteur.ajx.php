@@ -10,20 +10,56 @@
             <th class="horsForfait">Hors forfait</th>
         </tr>
         <?php
+        foreach($lesFraisDuVisiteur as $uneAnnee) {
+            $annee = $uneAnnee['annee'];
+            $fraisForfait = $uneAnnee['mtForfait'];
+            $fraisHorsForfait = $uneAnnee['mtHorsforfait'];
+            $total = $fraisForfait + $fraisHorsForfait;
+            
+            if($total != 0)
+            {
+            ?>
+                <tr>
+                <td><?php echo $annee ?></td>
+                <td><?php echo $total ?></td>
+                <td><?php echo $fraisForfait ?></td>
+                <td><?php echo $fraisHorsForfait ?></td>
+            </tr>
+            <?php
+            }
+        }
+        
+        //$lesFraisAnnuels = $pdo->getMontantFraisAnnuels($leVisiteur);
+        //$lesFraisHorsForfait = $pdo->getMontantFraisHorsForfaitAnnuels($leVisiteur);
+        
+        //$lol = $pdo->getLesFraisDuVisiteur($leVisiteur);
+        
+       
+        /*
+      //  foreach($lesFraisAnnuels as $uneAnnee) {
+        //    if($uneAnnee['montant'] != 0) {
+       //     ?>
+            <tr>
+                <td><?php echo $uneAnnee['annee'] ?></td>
+                <td><?php echo $uneAnnee['montant'] ?></td>
+            </tr>
+            <?php
+            }
+        }
+        
+        foreach($lesFraisHorsForfait as $uneAnnee) {
+            echo $uneAnnee['horsforfait'];
+        }
+        
         foreach ($lesAnneesDisponibles as $uneAnnee) {
             $annee = $uneAnnee['annee'];
 
-            // création et vérification des frais annuels
-            $lesFraisAnnuels = $pdo->getMontantFraisAnnuels($leVisiteur, $annee);
-            $frais = $lesFraisAnnuels;
             
-            // création et vérification des frais dans le forfaits
+            
             $lesFraisForfaitAnnuels = $pdo->getMontantFraisForfaitAnnuels($leVisiteur, $annee);
             $fraisForfait = $lesFraisForfaitAnnuels[0][2];
 
-            // création et vérification des frais hors forfaits
-            $lesFraisHorsForfaitAnnuels = $pdo->getMontantFraisHorsForfaitAnnuels($leVisiteur, $annee);
-            $fraisHorsForfait = $lesFraisHorsForfaitAnnuels;
+
             
             if($frais != 0)
             {
@@ -37,6 +73,8 @@
             <?php
             }
         }
+         
+         */
         ?>
     </table>
 </div>

@@ -101,15 +101,44 @@ class PdoGsb {
      * @param $annee sous la forme aaaa
      * @return le total du montant des frais hors forfait par année pour un visiteur 
      */
-    public function getMontantFraisHorsForfaitAnnuels($idVisiteur, $annee) {
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUM(montant) as total FROM lignefraishorsforfait "
+    public function getMontantFraisHorsForfaitAnnuels($idVisiteur) {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(mois,1,4) as annee, SUM(montant) as horsforfait "
+                . "FROM lignefraishorsforfait "
                 . "WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur "
-                . "AND SUBSTR(mois,1,4) = :uneAnnee");
+                . "GROUP BY SUBSTR(mois,1,4) ");
         $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
-        $requete_prepare->bindParam(':uneAnnee', $annee, PDO::PARAM_STR);
         $requete_prepare->execute();
-        $laLigne = $requete_prepare->fetch();
-        return $laLigne['total'];
+        $lesLignes = $requete_prepare->fetchAll();
+        return $lesLignes;
+    }
+
+    /**
+     * Retourne sous forme d'un tableau associatif le montant frais forfait de chaque année
+     * concernées par l'utilisateur ainsi que le montant frais hors forfait
+     *
+     * @param $idVisiteur
+     * @return le  montant total des frais forfait et hors forfait et l'année sous la forme d'un tableau associatif
+     */
+    public function getLesFraisDuVisiteur($idVisiteur) {
+
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(leMois,1,4) as annee, SUM(montantForfait) as mtForfait, SUM(montantHorsForfait) as mtHorsforfait
+        FROM (
+	SELECT FI.mois as leMois, SUM(LFF.quantite * FF.montant) as montantForfait, (
+		SELECT SUM(LFHF.montant) 
+		FROM lignefraishorsforfait LFHF 
+		WHERE FI.idVisiteur = LFHF.idVisiteur AND FI.mois = LFHF.mois) as montantHorsForfait
+	FROM fichefrais FI
+	INNER JOIN lignefraisforfait LFF on FI.idVisiteur = LFF.idVisiteur AND FI.mois = LFF.mois
+	INNER JOIN fraisforfait FF on LFF.idFraisForfait = FF.id
+	WHERE FI.idVIsiteur = :unIdVisiteur AND FI.idEtat = 'RB'
+	GROUP BY FI.mois) RES 
+    GROUP BY annee
+    ORDER BY annee DESC ;");
+
+        $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requete_prepare->execute();
+        $lesLignes = $requete_prepare->fetchAll();
+        return $lesLignes;
     }
 
     /**
@@ -153,8 +182,7 @@ class PdoGsb {
         return $requete_prepare->fetchAll();
     }
 
-    
-        /**
+    /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
      * concernées par les deux arguments
      * 
@@ -419,7 +447,7 @@ class PdoGsb {
         $requete_prepare->execute(array(":idVisiteur" => $idVisiteur, ":uneAnne" => strval($annee)));
         return $requete_prepare->fetchAll();
     }
-    
+
     /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
      * concernées par les deux arguments
@@ -428,15 +456,14 @@ class PdoGsb {
      * @param $annees sous la forme aaaa
      * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif
      */
-    public function getMontantFraisAnnuels($idVisiteur, $annee) {
+    public function getMontantFraisAnnuels($idVisiteur) {
 
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUM(montantValide) as montant"
-                . " FROM fichefrais WHERE idvisiteur = :idVisiteur AND SUBSTR(mois,1,4) = :uneAnne");
-        $requete_prepare->execute(array(":idVisiteur" => $idVisiteur, ":uneAnne" => strval($annee)));
-        $laLigne = $requete_prepare->fetch();
-        return $laLigne['montant'];
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(mois,1,4) as annee, SUM(montantValide) as montant"
+                . " FROM fichefrais WHERE idvisiteur = :idVisiteur GROUP BY SUBSTR(mois,1,4)");
+        $requete_prepare->execute(array(":idVisiteur" => $idVisiteur));
+        $lesLignes = $requete_prepare->fetchAll();
+        return $lesLignes;
     }
-    
 
     /**
      * Retourne les annees pour lesquel un visiteur a une fiche de frais
