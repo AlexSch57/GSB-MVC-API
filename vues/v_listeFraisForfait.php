@@ -9,9 +9,10 @@
                     $idFrais = $unFrais['idfrais'];
                     $libelle = htmlspecialchars($unFrais['libelle']);
                     $quantite = $unFrais['quantite'];
+                    $montant = $unFrais['montant'];
                     ?>
                     <div class="form-group">
-                        <label for="idFrais2"><?php echo $libelle ?></label>
+                        <label for="idFrais2"><?php echo $libelle .' ('.$montant.')'?></label>
                         <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais ?>]" size="10" maxlength="5" value="<?php echo $quantite ?>" class="form-control">
                     </div>
                     <?php

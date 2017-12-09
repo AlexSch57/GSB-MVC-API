@@ -125,6 +125,7 @@ class PdoGsb {
     
         /**
      * Retourne sous forme d'un tableau associatif le montant frais du forfait indiqué  de l'année actuelle
+         * ATTENTION : N'ayant aucune note de frais pour l'année 2017, l'année 2016 est selectionné en dur dans la requête
      * pour chaque utilisateur
      *
      * @param $forfait
@@ -141,7 +142,8 @@ class PdoGsb {
                     WHERE FI.idEtat = 'RB' AND SUBSTR(FI.mois,1,4) = '2016' AND LFF.idFraisForfait = :leForfait 
                     GROUP BY LFF.idFraisForfait, FI.idVisiteur
                 ) RES 
-		GROUP BY leVisiteur ;");
+		GROUP BY leVisiteur 
+                ORDER BY nom ;");
         $requete_prepare->bindParam(':leForfait', $forfait, PDO::PARAM_STR);
         $requete_prepare->execute();
         $lesLignes = $requete_prepare->fetchAll();
@@ -177,7 +179,7 @@ class PdoGsb {
      */
     public function getLesFraisForfait($idVisiteur, $mois) {
         $requete_prepare = PdoGSB::$monPdo->prepare("SELECT fraisforfait.id as idfrais, "
-                . "fraisforfait.libelle as libelle, lignefraisforfait.quantite as quantite "
+                . "fraisforfait.libelle as libelle, fraisforfait.montant as montant, lignefraisforfait.quantite as quantite "
                 . "FROM lignefraisforfait "
                 . "INNER JOIN fraisforfait ON fraisforfait.id = lignefraisforfait.idfraisforfait "
                 . "WHERE lignefraisforfait.idvisiteur = :unIdVisiteur "
