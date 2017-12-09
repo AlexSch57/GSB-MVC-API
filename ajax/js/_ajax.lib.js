@@ -38,6 +38,26 @@ function afficherStatVisiteur()
     });
 }
 
+function afficherStatFrais()
+{
+    $(document).ready(function(){
+            $.post(
+                    'ajax/_indexAjax.php', // url du script à executer
+                    {
+                            // Données envoyées
+                            uc:'statFrais',
+                            action:'voirStatFrais',
+                            lstFrais:$("#lstFrais").val(),
+                    },
+                    // Fonction pour gérer le retour
+                    function(data){
+                            $("#zoneStat").html(data);
+                    },
+                    'text' // Format de retour : texte HTML
+            );
+    });
+}
+
 function afficherStatAnneeFrais()
 {
     $(document).ready(function(){

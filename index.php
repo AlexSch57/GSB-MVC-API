@@ -40,6 +40,10 @@ switch ($uc) {
             include("controleurs/c_listeVisiteurs.php");
             break;
         }
+    case 'statFrais' : {
+            include("controleurs/c_listeFrais.php");
+            break;
+        }
     case 'statAnneeFrais' : {
             include("controleurs/c_listeAnneeFrais.php");
             break;

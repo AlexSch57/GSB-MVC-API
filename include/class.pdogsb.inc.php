@@ -121,6 +121,32 @@ class PdoGsb {
         $lesLignes = $requete_prepare->fetchAll();
         return $lesLignes;
     }
+    
+    
+        /**
+     * Retourne sous forme d'un tableau associatif le montant frais du forfait indiqué  de l'année actuelle
+     * pour chaque utilisateur
+     *
+     * @param $forfait
+     * @return le montant des frais du forfait indiqué de l'année actuelle pour chaque visiteur sous la forme d'un tableau associatif
+     */
+    public function getLesFrais($forfait) {
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT leVisiteur, nomVisiteur as nom, SUM(montantForfait) as montant
+                FROM (
+                    SELECT FI.idVisiteur as leVisiteur, CONCAT(nom, ' ',prenom) as nomVisiteur, SUM(LFF.quantite * FF.montant) as montantForfait
+                    FROM fichefrais FI
+                    INNER JOIN lignefraisforfait LFF on FI.idVisiteur = LFF.idVisiteur AND FI.mois = LFF.mois
+                    INNER JOIN fraisforfait FF on LFF.idFraisForfait = FF.id
+                    INNER JOIN visiteur V on V.id = FI.idVisiteur
+                    WHERE FI.idEtat = 'RB' AND SUBSTR(FI.mois,1,4) = '2016' AND LFF.idFraisForfait = :leForfait 
+                    GROUP BY LFF.idFraisForfait, FI.idVisiteur
+                ) RES 
+		GROUP BY leVisiteur ;");
+        $requete_prepare->bindParam(':leForfait', $forfait, PDO::PARAM_STR);
+        $requete_prepare->execute();
+        $lesLignes = $requete_prepare->fetchAll();
+        return $lesLignes;
+    }
 
     /**
      * Retourne le nombre de justificatif d'un visiteur pour un mois donné
@@ -428,7 +454,7 @@ class PdoGsb {
      */
     public function getNomForfait() {
 
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT libelle FROM fraisforfait");
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT id, libelle FROM fraisforfait");
         $requete_prepare->execute();
         return $requete_prepare->fetchAll();
     }
@@ -479,10 +505,10 @@ class PdoGsb {
     }
 
     /**
-     * Retourne les annees pour lesquel un visiteur a une fiche de frais
+     * Retourne le nom et le prénom d'un visiteur par rapport à son id
      *
      * @param $idVisiteur
-     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
+     * @return une chaine de caractère du nom et du prénom du visiteur
      */
     public function getNomPrenomVisiteurParId($idVisiteur) {
         $requete_prepare = PdoGSB::$monPdo->prepare("SELECT CONCAT(nom, ' ', prenom) as visiteur FROM visiteur WHERE id = :idVisiteur");
