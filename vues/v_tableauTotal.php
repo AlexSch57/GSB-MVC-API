@@ -4,18 +4,21 @@
         <table class="table table-bordered table-responsive">
             <tr>
                 <th class="annee">Année</th>
-                <th class='montanthf'>Montant hors forfait</th>
-                <th class='montantf'>Montant forfait</th>
                 <th class='total'>Montant total</th>  
+                <th class='montantf'>Montant forfait</th>
+                <th class='montanthf'>Montant hors forfait</th>
             </tr>
             <?php
             foreach ($lesFraisTotal as $unFrais) {
+                $annee = $unFrais['annee'];
+                $forfait = $unFrais['mtForfait'];
+                $horsForfait = $unFrais['mtHorsforfait'];
                 ?>
                 <tr>
-                    <td><?php echo $unFrais['annee']; ?></td>
-                    <td><?php echo $unFrais['mtForfait']; ?></td>
-                    <td><?php echo $unFrais['mtHorsforfait']; ?></td>
-                    <td><?php echo $unFrais['mtForfait']+$unFrais['mtHorsforfait']; ?></td>
+                    <td><?php echo $annee; ?></td>
+                    <td><?php echo $forfait + $horsForfait; ?></td>
+                    <td><?php echo $forfait; ?></td>
+                    <td><?php echo $horsForfait; ?></td>
                 </tr>
                 <?php
             }
