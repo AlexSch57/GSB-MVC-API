@@ -47,7 +47,11 @@ switch ($uc) {
     case 'statAnneeFrais' : {
             include("controleurs/c_listeAnneeFrais.php");
             break;
-    }
+        }
+    case 'tableauTotal' : {
+            include("controleurs/c_tableauTotal.php");
+            break;
+        }
     case 'deconnexion' : {
             include("controleurs/c_deconnexion.php");
             break;

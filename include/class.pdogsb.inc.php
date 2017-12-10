@@ -121,11 +121,10 @@ class PdoGsb {
         $lesLignes = $requete_prepare->fetchAll();
         return $lesLignes;
     }
-    
-    
-        /**
+
+    /**
      * Retourne sous forme d'un tableau associatif le montant frais du forfait indiqué  de l'année actuelle
-         * ATTENTION : N'ayant aucune note de frais pour l'année 2017, l'année 2016 est selectionné en dur dans la requête
+     * ATTENTION : N'ayant aucune note de frais pour l'année 2017, l'année 2016 est selectionné en dur dans la requête
      * pour chaque utilisateur
      *
      * @param $forfait
@@ -148,6 +147,33 @@ class PdoGsb {
         $requete_prepare->execute();
         $lesLignes = $requete_prepare->fetchAll();
         return $lesLignes;
+    }
+
+    /**
+     * Retourne sous forme d'un tableau associatif le montant frais forfait de chaque année
+     * concernées par l'utilisateur ainsi que le montant frais hors forfait
+     *
+     * @param $idVisiteur
+     * @return le  montant total des frais forfait et hors forfait et l'année sous la forme d'un tableau associatif
+     */
+    public function getLesFraisTotal($idVisiteur) {
+
+        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(leMois,1,4) as annee, SUM(montantForfait) as mtForfait, SUM(montantHorsForfait) as mtHorsforfait
+            FROM (
+                SELECT FI.mois as leMois, SUM(LFF.quantite * FF.montant) as montantForfait, (
+                    SELECT SUM(LFHF.montant) 
+                    FROM lignefraishorsforfait LFHF 
+                    WHERE FI.idVisiteur = LFHF.idVisiteur AND FI.mois = LFHF.mois) as montantHorsForfait
+            FROM fichefrais FI
+            INNER JOIN lignefraisforfait LFF on FI.idVisiteur = LFF.idVisiteur AND FI.mois = LFF.mois
+            INNER JOIN fraisforfait FF on LFF.idFraisForfait = FF.id
+            WHERE FI.idVIsiteur = :idVisiteur AND FI.idEtat = 'RB'
+            GROUP BY FI.mois) RES 
+        GROUP BY annee
+        ORDER BY annee DESC
+;");
+        $requete_prepare->execute(array(":idVisiteur" => $idVisiteur));
+        return $requete_prepare->fetchAll();
     }
 
     /**
@@ -471,8 +497,8 @@ class PdoGsb {
      */
     public function getLesFraisAnnuelsParCategorie($idVisiteur, $annee) {
 
-        
-        
+
+
         $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(lff.mois,5,6) as mois, ff.libelle, SUM(ff.montant*lff.quantite) AS montantFraisForfait "
                 . "FROM lignefraisforfait lff "
                 . "INNER JOIN fraisforfait ff "
