@@ -21,8 +21,8 @@ if (estConnecte() && isset($_POST['uc'])) {
             include("controleurs/c_statFrais.ajx.php");
             break;
         }
-        case 'statAnneeFrais': {
-            include("controleurs/c_statAnneeFrais.ajx.php");
+        case 'statAnneeFraisFor': {
+            include("controleurs/c_statAnneeFraisFor.ajx.php");
             break;
         }
     }

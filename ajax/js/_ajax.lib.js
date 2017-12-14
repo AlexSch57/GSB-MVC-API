@@ -58,23 +58,26 @@ function afficherStatFrais()
     });
 }
 
-function afficherStatAnneeFrais()
+// fonction appelée au clic sur le bouton btAfficher
+function afficherStatAnneeFraisFor() 
 {
-    $(document).ready(function(){
-            $.post(
-                    'ajax/_indexAjax.php', // url du script à executer
-                    {
-                            // Données envoyées
-                            uc:'statAnneeFrais',
-                            action:'voirStatAnneeFrais',
-                            lstAnneeFrais:$("#lstAnneeFrais").val(),
-                    },
-                    // Fonction pour gérer le retour
-                    function(data){
-                            $("#zoneStat").html(data);
-                    },
-                    'text' // Format de retour : texte HTML
-            );
-    });
+	// Permet l'exécution d'une fonction spécifique une fois le document DOM entièrement 
+	//     chargé, et pret à être parcouru et manipulé.
+	$(document).ready(function(){
+		$.post(
+			'ajax/_indexAjax.php',  //  URL script à exécuter
+			{
+				// données envoyées
+				uc : 'statAnneeFraisFor',
+				action : 'voirStatAnneeFraisFor',			
+				lstAnnee : $("#lstAnnee").val(),  // Donnée à envoyer au serveur
+			},
+			// fonction pour gérer le retour
+			function(data){
+                                $("#zoneStat").html(data);   
+				},
+			'text' // format de retour, nous souhaitons recevoir du texte HTML donc on indique text 
+			 );
+		});
 }
 

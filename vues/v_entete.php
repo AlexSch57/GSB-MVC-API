@@ -24,7 +24,7 @@
                             <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'gererFrais') { ?> class="active"<?php } ?>><a href="index.php?uc=gererFrais&action=saisirFrais">Saisie fiche de frais</a></li>
                             <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'etatFrais') { ?> class="active"<?php } ?>><a href="index.php?uc=etatFrais&action=selectionnerMois">Mes fiches de frais</a></li>
                             <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statAnnee') { ?> class="active"<?php } ?>><a href="index.php?uc=statAnnee&action=selectionnerAnnee">Statistiques annuelles</a></li>
-                            <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statAnneeFrais') { ?> class="active"<?php } ?>><a href="index.php?uc=statAnneeFrais&action=selectionnerAnneeFrais">Frais remboursé par années et catégorie</a></li>
+                            <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statAnneeFraisFor') { ?> class="active"<?php } ?>><a href="index.php?uc=statAnneeFraisFor&action=selectionnerAnneeFraisFor">Frais remboursé par années et catégorie</a></li>
 
                             <?php if ($_SESSION["idVisiteur"] == directeur) { ?>
                                 <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statVisiteur') { ?> class="active"<?php } ?>><a href="index.php?uc=statVisiteur&action=selectionnerVisiteur">Statistiques par visiteur</a></li>

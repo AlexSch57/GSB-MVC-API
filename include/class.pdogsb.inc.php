@@ -431,29 +431,52 @@ class PdoGsb {
         return $lesAnnees;
     }
 
-    /**
-     * Retourne les annees pour lesquel un visiteur a une fiche de frais
-     *
-     * @param $idVisiteur
-     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant
-     */
-    public function getLesAnneesFraisDisponibles($idVisiteur) {
-        $requete_prepare = PdoGSB::$monPdo->prepare("SELECT fichefrais.mois AS mois "
-                . "FROM fichefrais "
-                . "WHERE fichefrais.idvisiteur = :unIdVisiteur "
-                . "AND idEtat = 'RB' "
-                . "ORDER BY fichefrais.mois desc");
-        $requete_prepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
-        $requete_prepare->execute();
-        $lesAnnees = array();
-        while ($laLigne = $requete_prepare->fetch()) {
-            $mois = $laLigne['mois'];
-            $annees = substr($mois, 0, 4);
-            $lesAnnees["$annees"] = array(
-                "annee" => "$annees"
-            );
+    public function getLesAnneesFraisFor() {
+        try {
+            $requete_prepare = PdoGSB::$monPdo->prepare("SELECT distinct SUBSTR(fichefrais.mois, 1, 4) AS annee "
+                    . "FROM fichefrais   "
+                    ." INNER JOIN lignefraisforfait ON  lignefraisforfait.idvisiteur = fichefrais.idvisiteur  "
+                    ." AND lignefraisforfait.mois = fichefrais.mois "
+                    . "WHERE fichefrais.idEtat = 'RB' "
+                    . "ORDER BY annee desc");
+            $requete_prepare->execute();
+            return $requete_prepare->fetchAll();
+        } catch (Exception $e) {
+            die($e->getMessage());
         }
-        return $lesAnnees;
+    }
+    
+    
+    public function getStatAnneeFraisFor($annee) {
+        try {
+            $requete_prepare = PdoGSB::$monPdo->prepare("SELECT SUBSTR(fif.mois,5,2) as mois, lff.idFraisForfait, SUM(lff.quantite * ffor.montant) as totalFrais "
+                    ." FROM fichefrais fif "
+                    ." INNER JOIN lignefraisforfait lff "
+                    ." ON  lff.idVisiteur = fif.idVisiteur AND lff.mois = fif.mois"
+                    ." INNER JOIN fraisforfait ffor "
+                    ." ON  lff.idFraisForfait = ffor.id"
+                    ." WHERE fif.idEtat = 'RB' AND SUBSTR(fif.mois,1,4) = :uneAnnee "
+                    ." GROUP BY mois, lff.idFraisForfait");
+            $requete_prepare->bindParam(':uneAnnee', $annee, PDO::PARAM_STR);
+            $requete_prepare->execute();
+            return $requete_prepare->fetchAll();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+    
+      
+   
+    public function getLesTypesFraisForfait() {
+        try {
+            $requete_prepare = PdoGSB::$monPdo->prepare("SELECT id, libelle "
+                    . "FROM fraisforfait "
+                    . "ORDER BY libelle");
+            $requete_prepare->execute();
+            return $requete_prepare->fetchAll();
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 
     /**
