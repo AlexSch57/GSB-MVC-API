@@ -12,7 +12,7 @@
                     $montant = $unFrais['montant'];
                     ?>
                     <div class="form-group">
-                        <label for="idFrais2"><?php echo $libelle .' ('.$montant.')'?></label>
+                        <label for="idFrais2"><?php echo $libelle .' ('.number_format($montant, 2, ',', ' ').' € )'?></label>
                         <input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais ?>]" size="10" maxlength="5" value="<?php echo $quantite ?>" class="form-control">
                     </div>
                     <?php

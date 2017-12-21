@@ -14,7 +14,7 @@
             ?>
             <tr>
                 <td><?php echo $annee ?></td>
-                <td><?php echo $montant ?></td>
+                <td><?php echo number_format($montant, 2, ',', ' ')  ?> €</td>
             </tr>
             <?php
         }

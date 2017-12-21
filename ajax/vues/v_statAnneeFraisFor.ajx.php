@@ -29,7 +29,7 @@
                 // afficher le mois 
                 echo '<tr><td>'.$moisCourant.'</td>';
                 foreach ($statMois as $unTypeFrais => $valeur) {
-                    echo '<td>'.$valeur.'</td>';
+                    echo '<td>'.number_format($valeur, 2, ',', ' '). ' €</td>';
                 }
                 echo '</tr>';
                 // réinitialiser le tableau des types de frais au forfait à 0
@@ -51,7 +51,7 @@
         // affichage du tableau du dernier mois
         echo '<tr><td>'.$moisCourant.'</td>';
         foreach ($statMois as $unTypeFrais => $valeur) {
-            echo '<td>'.$valeur.'</td>';
+            echo '<td>'.number_format($valeur, 2, ',', ' ') . ' €</td>';
         }
         echo '</tr>';
         ?>

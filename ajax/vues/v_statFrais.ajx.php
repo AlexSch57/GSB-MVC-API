@@ -14,7 +14,7 @@
             ?>
                 <tr>
                 <td><?php echo $nomVisiteur ?></td>
-                <td><?php echo $frais ?></td>
+                <td><?php echo number_format($frais, 2, ',', ' ')  ?> €</td>
             </tr>
             <?php
         }

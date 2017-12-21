@@ -16,9 +16,9 @@
                 ?>
                 <tr>
                     <td><?php echo $annee; ?></td>
-                    <td><?php echo $forfait + $horsForfait; ?></td>
-                    <td><?php echo $forfait; ?></td>
-                    <td><?php echo $horsForfait; ?></td>
+                    <td><?php echo number_format($forfait + $horsForfait, 2, ',', ' '); ?></td>
+                    <td><?php echo number_format($forfait, 2, ',', ' '); ?></td>
+                    <td><?php echo number_format($$horsForfait, 2, ',', ' '); ?></td>
                 </tr>
                 <?php
             }

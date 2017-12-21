@@ -18,9 +18,9 @@
             ?>
                 <tr>
                 <td><?php echo $annee ?></td>
-                <td><?php echo $total ?></td>
-                <td><?php echo $fraisForfait ?></td>
-                <td><?php echo $fraisHorsForfait ?></td>
+                <td><?php echo number_format($total, 2, ',', ' ')  ?> €</td>
+                <td><?php echo number_format($fraisForfait, 2, ',', ' ')  ?> €</td>
+                <td><?php echo number_format($fraisHorsForfait, 2, ',', ' ')  ?> €</td>
             </tr>
             <?php
         }
