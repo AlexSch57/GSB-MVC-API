@@ -3,25 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/_indexAjax.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/controleurs/c_statVisiteur.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/index.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_listeAnnees.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_tableauTotal.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/controleurs/c_statAnnee.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/include/fct.inc.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeMois.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/controleurs/c_statAnneeFrais.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statAnnee.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeVisiteurs.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/js/_ajax.lib.js</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_gererFrais.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_accueil.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_listeVisiteurs.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_connexion.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_tableauTotal.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statAnneeFraisFor.ajx.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/ajax/controleurs/c_statAnneeFraisFor.ajx.php</file>
             <file>file:/C:/wamp64/www/GSB-MVC/include/class.pdogsb.inc.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeAnnees.php</file>
         </group>
     </open-files>
 </project-private>

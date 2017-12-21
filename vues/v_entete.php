@@ -30,8 +30,9 @@
                                 <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statVisiteur') { ?> class="active"<?php } ?>><a href="index.php?uc=statVisiteur&action=selectionnerVisiteur">Statistiques par visiteur</a></li>
                                 <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'statFrais') { ?> class="active"<?php } ?>><a href="index.php?uc=statFrais&action=selectionnerFrais">Statistiques par frais</a></li>
                             <?php } ?>
-                            <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'deconnexion') { ?> class="active"<?php } ?>><a href="index.php?uc=deconnexion&action=demandeDeconnexion">Déconnexion</a></li>
+                            <li <?php if (isset($_REQUEST['uc']) && $_REQUEST['uc'] == 'deconnexion') { ?> class="active"<?php } ?>><a href="index.php?uc=deconnexion&action=demandeDeconnexion">Déconnexion</a></li>  
                         </ul>
+                        Visiteur : <?php echo $_SESSION['prenom'] . " " . $_SESSION['nom'] ?>
                     </div>
                 </div>
             </div>
