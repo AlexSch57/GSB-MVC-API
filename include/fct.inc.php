@@ -1,4 +1,5 @@
 <?php
+require_once('config.inc.php');
 /**
  * Fonctions pour l'application GSB
  * @package default
@@ -293,5 +294,65 @@ function getMonth($month,$mode) {
        default : $result = 'OOPS'; break;
    }
    return $result;
+}
+
+
+/**
+* initialise un client URL
+* @author
+* @return le client URL
+*/
+function initCurl($complementURL) {
+    // construire l'URL
+    $url = API_URL.$complementURL;
+    // initialiser la session http
+    $unCurl = curl_init($url);
+    // Préciser que la réponse est souhaitée
+    curl_setopt($unCurl, CURLOPT_RETURNTRANSFER, true);
+    // retourner le client HTTP
+    return $unCurl;
+}
+/**
+* consommer le service d'authentification
+* @author
+* @return le code HTTP et le jeton (ou un message d'erreur)
+*/
+function authAPI($login, $mdp) {
+    // initialiser le client URL
+    $unCurl = initCurl(LOGIN);
+    // Préciser le Content-Type
+    curl_setopt($unCurl,CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+    // Préciser le type de requête HTTP : POST
+    curl_setopt($unCurl, CURLOPT_POST, true);
+    // créer le tableau des données à envoyer par POST
+    $champsPost = array(
+        '_username' => $login,
+        '_password' => $mdp
+    );
+    // Créer la chaine url encodée selon la RFC1738 à partir du tableau de paramètres séparés par le caractère &
+    $trame = http_build_query($champsPost, '', '&');
+    // Ajouter les paramètres
+    curl_setopt($unCurl, CURLOPT_POSTFIELDS, $trame);
+    // Envoyer la requête
+    $reponse = curl_exec($unCurl);
+    // convertir la chaîne encodée JSON en une variable PHP
+    $retour = json_decode($reponse, false);
+    // récupérer le status
+    $resultStatus = curl_getinfo($unCurl);
+    // vérifier si le jeton a été obtenu
+    if ($resultStatus['http_code'] == 200) {
+        // dans ce cas le retour est un objet qui expose la propriété token
+        $laReponse = (object) [
+        'code' => $resultStatus['http_code'],
+        'token' => $retour->token ];
+    } 
+    else {
+        // dans ce cas le retour est un objet qui expose les propriétés code et message
+        $laReponse = $retour;
+    }
+    // fermer la session
+    curl_close($unCurl);
+    // retourner la réponse
+    return $laReponse;
 }
 ?>
