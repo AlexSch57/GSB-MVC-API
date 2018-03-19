@@ -11,8 +11,8 @@
                 <select id="lstVisiteur" name="lstVisiteurs" class="form-control">
                     <?php
                     foreach ($lesVisiteurs as $unVisiteur) {
-                        $id = $unVisiteur['id'];
-                        $visiteur = $unVisiteur['visiteur'];
+                        $id = $unVisiteur->id;
+                        $visiteur = $unVisiteur->visiteur;
                         ?>
                         <option selected value="<?php echo $id ?>"><?php echo $visiteur ?></option>
                         <?php

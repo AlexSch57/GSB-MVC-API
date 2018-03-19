@@ -11,9 +11,9 @@
         </tr>
         <?php
         foreach($lesFraisDuVisiteur as $uneAnnee) {
-            $annee = $uneAnnee['annee'];
-            $fraisForfait = $uneAnnee['mtForfait'];
-            $fraisHorsForfait = $uneAnnee['mtHorsforfait'];
+            $annee = $uneAnnee->annee;
+            $fraisForfait = $uneAnnee->mtForfait;
+            $fraisHorsForfait = $uneAnnee->mtHorsforfait;
             $total = $fraisForfait + $fraisHorsForfait;
             ?>
                 <tr>
