@@ -9,8 +9,8 @@
         </tr>
         <?php
         foreach ($lesFraisAnnuels as $uneAnnee) {
-            $annee = getMonth(intval($uneAnnee['month']),1);
-            $montant = $uneAnnee['montant'];
+            $annee = getMonth(intval($uneAnnee->month),1);
+            $montant = $uneAnnee->montant;
             ?>
             <tr>
                 <td><?php echo $annee ?></td>

@@ -12,7 +12,7 @@
         <tr>
             <?php
             foreach ($lesFraisForfait as $unFraisForfait) {
-                $libelle = $unFraisForfait->libelle;//['libelle'];
+                $libelle = $unFraisForfait->libelle;
                 ?>	
                 <th> <?php echo htmlspecialchars($libelle)  ?></th>
                 <?php
@@ -22,7 +22,7 @@
         <tr>
             <?php
             foreach ($lesFraisForfait as $unFraisForfait) {
-                $quantite = $unFraisForfait->quantite;//['quantite'];
+                $quantite = $unFraisForfait->quantite;
                 ?>
                 <td class="qteForfait"><?php echo number_format($quantite, 2, ',', ' '). ' €' ?> </td>
                 <?php

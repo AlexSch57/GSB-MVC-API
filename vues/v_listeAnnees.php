@@ -12,7 +12,7 @@
                     <?php
                     foreach ($lesAnnees as $uneAnnee) 
                     {
-                        $annee = $uneAnnee['annee'];
+                        $annee = $uneAnnee->annee;
                         ?>
                         <option selected value="<?php echo $annee ?>"><?php echo $annee ?></option>
                     <?php

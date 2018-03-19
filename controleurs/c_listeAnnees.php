@@ -3,7 +3,7 @@ $action = $_REQUEST["action"];
 $id_visiteur = $_SESSION["idVisiteur"];
 switch ($action) {
     case'selectionnerAnnee': {
-            $lesAnnees = $pdo->getLesAnneesDisponibles($id_visiteur);
+            $lesAnnees = getAPI('lesanneesdisponibles/'.$id_visiteur);
             include("vues/v_listeAnnees.php");
         }
 }
