@@ -312,6 +312,45 @@ function initCurl($complementURL) {
     // retourner le client HTTP
     return $unCurl;
 }
+
+
+
+/**
+ * méthode GET  - API Rest Frais 
+ * @author md
+ * @return la réponse 
+ */
+function getAPI($url) {
+    // initialiser le client URL
+    $unCurl = initCurl($url);
+    // Définir l'entête avec le jeton d'authentification
+    $header = array();
+    $header[] = 'Authorization: Bearer '.$_SESSION['token'];
+    curl_setopt($unCurl, CURLOPT_HTTPHEADER, $header);
+    
+    // Envoyer la requête
+    $reponse = curl_exec($unCurl);
+
+    // récupérer le status, ici juste le code HTTP
+    $httpCode = curl_getinfo($unCurl, CURLINFO_HTTP_CODE);
+    // vérifier si il y a une réponse
+    if ($httpCode == 404) {
+        // false indiquera qu'il n'y a pas de ligne retournée
+        $laReponse = false;
+    }
+    else
+    {
+        // convertir la chaîne encodée JSON en une variable PHP    
+        $laReponse = json_decode($reponse, false);
+    }
+    
+    // fermer la session
+    curl_close($unCurl);
+
+    // retourner la réponse 
+    return $laReponse;
+}
+
 /**
 * consommer le service d'authentification
 * @author
