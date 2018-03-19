@@ -22,10 +22,11 @@ function estConnecte() {
  * @param $nom
  * @param $prenom
  */
-function connecter($id, $nom, $prenom) {
+function connecter($id, $nom, $prenom, $token) {
     $_SESSION['idVisiteur'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
+    $_SESSION['token'] = $token;
 }
 /**
  * Détruit la session active

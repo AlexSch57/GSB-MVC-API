@@ -21,11 +21,10 @@ switch ($action) {
                 
                 if($authentification->code == 200)
                 {
-                    $_SESSION['token'] = $authentification->token;
                     $id = $visiteur['id'];
                     $nom = $visiteur['nom'];
                     $prenom = $visiteur['prenom'];
-                    connecter($id, $nom, $prenom);
+                    connecter($id, $nom, $prenom, $authentification->token);
                     header('Location: index.php');
                 }
                 else
