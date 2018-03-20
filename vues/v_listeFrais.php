@@ -11,8 +11,8 @@
                 <select id="lstFrais" name="lstFrais" class="form-control">
                     <?php
                     foreach ($nomForfait as $unForfait) {
-                        $id = $unForfait['id'];
-                        $forfait = $unForfait['libelle'];
+                        $id = $unForfait->id;//['id'];
+                        $forfait = $unForfait->libelle;//['libelle'];
                         ?>
                         <option selected value="<?php echo $id ?>"><?php echo $forfait ?></option>
                         <?php
