@@ -5,7 +5,7 @@ $id_visiteur = $_SESSION["idVisiteur"];
 switch ($action) {
     case'voirStatFrais': {
             $leFrais = ($_POST["lstFrais"]);
-            $lesFrais = $pdo->getLesFrais($leFrais);
+            $lesFrais = getAPI('lesfrais/'.$leFrais);
             include("vues/v_statFrais.ajx.php");
         }
 }

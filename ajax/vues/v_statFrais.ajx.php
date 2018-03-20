@@ -9,8 +9,8 @@
         </tr>
         <?php
         foreach($lesFrais as $unFrais) {
-            $nomVisiteur = $unFrais['nom'];
-            $frais = $unFrais['montant'];
+            $nomVisiteur = $unFrais->nom;
+            $frais = $unFrais->montant;
             ?>
                 <tr>
                 <td><?php echo $nomVisiteur ?></td>
