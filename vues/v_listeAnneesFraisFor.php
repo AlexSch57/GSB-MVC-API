@@ -9,8 +9,9 @@
                 <label for="lstAnnee" accesskey="n">Année : </label>
                 <select id="lstAnnee" name="lstAnnee" class="form-control">
                     <?php
+                    var_dump($lesAnnees);
                     foreach ($lesAnnees as $uneAnnee) {
-                        $annee = $uneAnnee[0];
+                        $annee = $uneAnnee->annee;
                         if ($annee == $anneeASelectionner) {
                             ?>
                             <option selected value="<?php echo $annee ?>"><?php echo $annee ?> </option>

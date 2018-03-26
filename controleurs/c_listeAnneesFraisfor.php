@@ -4,6 +4,7 @@ $idVisiteur = $_SESSION['idVisiteur'];
 switch ($action) {
     case 'selectionnerAnneeFraisFor': {
             $lesAnnees = $pdo->getLesAnneesFraisFor();
+            $lesAnnees = getAPI('lesanneesfraisfor');
             // Afin de sélectionner par défaut la dernière année dans la zone de liste
             // on  prend la première,
             // les années étant triés par ordre décroissant

@@ -3,22 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_etatFrais.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/index.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statAnneeFraisFor.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_erreurs.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_tableauTotal.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_etatFrais.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_entete.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statFrais.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeFraisForfait.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statAnnee.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_gererFrais.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_accueil.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_connexion.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/ajax/vues/v_statVisiteur.ajx.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeFrais.php</file>
-            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeAnnees.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_listeAnneesFraisfor.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/controleurs/c_listeAnnees.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/vues/v_listeAnneesFraisFor.php</file>
+            <file>file:/C:/wamp64/www/GSB-MVC/include/class.pdogsb.inc.php</file>
         </group>
     </open-files>
 </project-private>
